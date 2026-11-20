@@ -3,9 +3,17 @@ package com.gyojincompany.sbb.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.gyojincompany.sbb.service.UserSevice;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
+	
+	private final UserSevice userSevice;
 	
 	@GetMapping("/") //root에 대한 요청->서버에 접속하자마자 받게 되는 요청
 	public String root() {
@@ -29,7 +37,19 @@ public class HomeController {
 	
 	
 	@GetMapping("/signup") //회원가입 페이지로 가는 요청
-	public String signup() {
+	public String signupForm() {
 		return "signup";
 	}
+	
+	@PostMapping("/signup") //회원가입 과정 진행
+	public String signup(
+		@RequestParam("username") String username,
+		@RequestParam("password") String password,
+		@RequestParam("email") String email
+	) {
+		userSevice.create(username, password, email); //회원가입
+		
+		return "redirect:/login"; //회원가입 후 로그인 화면으로 강제 이동 
+	}
+	
 }
