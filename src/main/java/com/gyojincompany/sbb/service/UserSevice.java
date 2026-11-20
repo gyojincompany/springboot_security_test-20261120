@@ -29,8 +29,12 @@ public class UserSevice {
 		//->비밀번호를 db에 넣기 전에 암호화 한 후에 암호문으로 db에 저장 
 		
 		//롤(권한)설정->기본회원권한은 일반회원으로 설정
-		siteUser.setRole(UserRole.USER); //일반회원
-		//siteUser.setRole(UserRole.ADMIN); //관리자회원
+		if(username.equals("admin")) {
+			siteUser.setRole(UserRole.ADMIN); //관리자회원
+		} else {
+			siteUser.setRole(UserRole.USER); //일반회원
+		}
+		
 		userRepository.save(siteUser); //DB에 회원정보 저장
 		
 		return siteUser;

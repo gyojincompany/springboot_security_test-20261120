@@ -20,10 +20,12 @@ public class HomeController {
 		return "index";
 	}
 	
+	
 	@GetMapping("/admin") //admin 요청->관리자만 볼수 있는 관리자 페이지로 매핑
 	public String amdin() {
 		return "admin";
 	}
+	
 	
 	@GetMapping("/userinfo") //로그인한 사용자만 볼수 있는 요청
 	public String userinfo() {
@@ -35,6 +37,10 @@ public class HomeController {
 		return "login";
 	}
 	
+	@GetMapping("/logout") //로그아웃 페이지로 가는 요청
+	public String logout() {
+		return "logout";
+	}
 	
 	@GetMapping("/signup") //회원가입 페이지로 가는 요청
 	public String signupForm() {
