@@ -1,8 +1,9 @@
 package com.gyojincompany.sbb.service;
 
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UserSecurityService implements UserDetailService{
+public class UserSecurityService implements UserDetailsService{
 	
 	private final UserRepository userRepository;
 	
@@ -21,7 +22,9 @@ public class UserSecurityService implements UserDetailService{
 	//id 회원번호->기본키
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+		
+		System.out.println("loadUserByUsername 호출!");
+		
 		SiteUser user = userRepository.findByUsername(username);
 		//로그인하려고 사용자가 입력한 아이디(username)로 회원정보 db에서 찾아오기
 		
@@ -31,11 +34,10 @@ public class UserSecurityService implements UserDetailService{
 		}
 		
 		return User.builder()
-				.username(user.getUsername())
-				.password(user.getPassword()) 
-				.authorities(user.getRole().getValue())
+				.username(user.getUsername()) //사용자 아이디
+				.password(user.getPassword()) //사용자 비밀번호
+				.authorities(user.getRole().getValue()) //사용자의 권한(admin, user)
 				.build();
 	}
-	
 	
 }

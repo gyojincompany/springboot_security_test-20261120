@@ -46,7 +46,8 @@ public class SecurityConfig {
 			//로그인 설정->로그인 하지 않으면 볼 수 없는 요청이 들어왔을때->loginPage("/login")로 강제이동
 			.formLogin(login -> login
 				.loginPage("/login") //로그인 페이지(컨트롤러에 등록된 로그인 요청) 등록
-				.defaultSuccessUrl("/", true) //로그인 성공했을때 이동할 페이지(요청) 등록 -> 성공시 root로 이동
+			    .loginProcessingUrl("/login") //로그인 처리 url 등록
+				.defaultSuccessUrl("/", true) //로그인 성공했을때 이동할 페이지(요청) 등록 -> 성공시 root로 이동				
 				.permitAll()
 			)
 			//로그아웃 설정

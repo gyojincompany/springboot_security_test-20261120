@@ -24,7 +24,7 @@ public class SiteUser {
 	
 	private String email;
 	
-	@Enumerated(EnumType.STRING) //0->admin, 1->user
+	@Enumerated(EnumType.ORDINAL) //0->admin, 1->user
 	//권한 설정(admin, user)
 	private UserRole role;
 	//role->enum 타입이므로 ADMIN 또는 USER 만 가질 수 있음
